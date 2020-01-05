@@ -1,73 +1,74 @@
-class Node:
-    def __init__(self,a:int)->None:
-        self.data=a
-        self.next=None
+class sl:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
 
+    class Node:
+        def __init__(self, data, nextnode=None) -> None:
+            self.data = data
+            self.next = nextnode
 
-class linkedlist:
-    def __init__(self)->None:
-        self.head=None
+        def __str__(self):
+            return f"[{self.data}]-->"
 
-    def append(self,data:int)->None:
-        if self.head is None:
-            self.head=Node(data)
+    def append(self, data) -> None:
+        last = self.tail
+        node = self.Node(data)
+        self.tail = node
+        if last is None:
+            self.head = node
         else:
-            temp=self.head
-            while temp.next is not None:
-                temp=temp.next
-            temp.next=Node(data)
+            last.next = node
+        self.size += 1
 
-    def prepend(self,data:int)->None:
-        if self.head is None:
-            self.head=Node(data)
-        else:
-            temp=Node(data)
-            temp.next=self.head
-            self.head=temp
+    def prepend(self, data) -> None:
+        first = self.head
+        node = self.Node(data, first)
+        self.head = node
+        if first is None:
+            self.tail = node
+        self.size += 1
 
-    def delete(self,data:int)->None:
+    def delete(self, data:int) -> None:
         if self.head is None:
             return print('nothing to delete')
-        elif self.head.data==data:
-            save=self.head.data
-            self.head=self.head.next
+        elif self.head.data == data:
+            save = self.head.data
+            self.head = self.head.next
             return print(str(save))
         else:
-            temp=self.head
+            temp = self.head
             while temp.next is not None:
-                if temp.next.data==data:
-                    save=temp.next.data
-                    temp.next=temp.next.next
+                if temp.next.data == data:
+                    save = temp.next.data
+                    temp.next = temp.next.next
                     return print(str(save))
-                temp=temp.next
+                temp = temp.next
         return print("value not found")
 
-    def addInMiddle(self,data:int,pos:int)->None:
-        if pos==1:
+    def addInMiddle(self, data, pos) -> None:
+        if pos == 1:
                 self.prepend(data)
         else:
-            temp=self.head
-            count=0
+            temp = self.head
+            count = 0
             while temp is not None:
-                count+=1
-                temp=temp.next
-            if pos>count:
+                count += 1
+                temp = temp.next
+            if pos > count:
                 print('appending in the end is possible and not in the middle')
                 self.append(data)
             else:
-                temp=self.head
-                temp2=None
-                i=0
-                while temp.next is not None and i!=pos:
-                    temp2=temp
-                    temp=temp.next
-                    i+=1
-                temp2.next=Node(data)
-                temp2.next.next=temp
-
-
-
-
+                temp = self.head
+                temp2 = None
+                i = 0
+                while temp.next is not None and i != pos:
+                    temp2 = temp
+                    temp = temp.next
+                    i += 1
+                temp2.next = self.Node(data)
+                temp2.next.next = temp
 
     def show(self)->None:
         temp=self.head
@@ -81,7 +82,7 @@ class linkedlist:
 
 
 if __name__ == '__main__':
-    ob=linkedlist()
+    ob = sl()
     ob.append(10)
     ob.append(20)
     ob.append(30)
